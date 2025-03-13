@@ -1,16 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import ControlCentre from "./assets/components/ControlCentre";
+import ConversationWindow from "./assets/components/ConversationWindow";
+import MessageInput from "./assets/components/MessageInput";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [controlOpen, setControlOpen] = useState(true);
+  const [largeText, setLargeText] = useState(false);
+
+  useEffect(() => {
+    document.body.classList.toggle("large-text", largeText);
+  }, [largeText]);
 
   return (
-    <div className="min-h-screen bg-blue-600 text-white flex items-center justify-center">
-      <h1 className="text-4xl font-bold underline">Tailwind is working!</h1>
+    <div className="flex h-screen w-screen overflow-hidden">
+      {/* Control Centre (Resizable Sidebar) */}
+      <div
+        className={`
+          bg-neutral-100 dark:bg-neutral-800 transition-all duration-300 ease-in-out
+          ${controlOpen ? "w-64" : "w-16"}
+          relative
+        `}
+      >
+        <ControlCentre
+          isOpen={controlOpen}
+          setIsOpen={setControlOpen}
+          setLargeText={setLargeText}
+          largeText={largeText}
+        />
+      </div>
+
+      {/* Main Chat Area */}
+      <div className="flex flex-col flex-1 bg-[var(--bg-color)] text-[var(--text-color)]">
+        <div className="flex flex-col justify-between h-full px-4">
+          <ConversationWindow />
+          <MessageInput />
+        </div>
+      </div>
     </div>
   );
 }
-
-export default App

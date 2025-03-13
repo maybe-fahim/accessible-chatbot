@@ -1,1 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
+
+
+:root {
+    --bg-color: #f5f5eb;
+    --text-color: #333;
+    --toggle-off: #ddd;
+    --toggle-on: #4caf50;
+  }
+  
+  [data-theme="dark"] {
+    --bg-color: #1e1e1e;
+    --text-color: #fff;
+    --toggle-off: #444;
+    --toggle-on: #4caf50;
+  }
+  
+  [data-theme="high-contrast-light"] {
+    --bg-color: #fff;
+    --text-color: #000;
+    --toggle-off: #000;
+    --toggle-on: #ff0;
+  }
+  
+  [data-theme="high-contrast-dark"] {
+    --bg-color: #000;
+    --text-color: #fff;
+    --toggle-off: #888;
+    --toggle-on: #ff0;
+  }
+  
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+    font-family: "Jost", sans-serif;
+  }
+
+  
+  
