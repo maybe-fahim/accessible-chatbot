@@ -51,7 +51,7 @@ const ControlCentre = ({ isOpen, setIsOpen }) => {
             shortcutKey="W"
             isActive={largeText}
             onToggle={() => setLargeText(prev => !prev)}
-            iconOff={<FiEye size={37.5}/>}
+            iconOff={<FiEyeOff size={37.5}/>}
             iconOn={<FiEyeOff size={37.5}/>}
           />
 
@@ -61,8 +61,8 @@ const ControlCentre = ({ isOpen, setIsOpen }) => {
             shortcutKey="E"
             isActive={highContrast}
             onToggle={() => setHighContrast(prev => !prev)}
-            iconOff="⚫"
-            iconOn="🟡"
+            iconOff={<FiEye size={37.5}/>}
+            iconOn={<FiEyeOff size={37.5}/>}
           />
 
           {/* Audio Mode */}
