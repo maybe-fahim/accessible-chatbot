@@ -9,7 +9,7 @@ const ConversationWindow = () => {
       <div
         className="overflow-y-auto w-full flex justify-center scroll-stable"
       >
-        <div className="w-full max-w-[960px] pl-10 pt-8 pb-4 pr-6">
+        <div className="w-full max-w-[958px] pl-[39px] pt-8 pb-4 pr-[25px]">
           <Conversation />
         </div>
       </div>
