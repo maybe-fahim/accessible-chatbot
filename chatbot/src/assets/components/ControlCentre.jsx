@@ -32,7 +32,7 @@ const ControlCentre = ({ isOpen, setIsOpen }) => {
       {/* Toggle Area */}
       {isOpen && (
         <div className="flex flex-col items-center gap-16 pb-6">
-          <div className="text-lg font-semibold mb-2 text-white">Accessibility</div>
+          <div className="text-lg font-semibold mb-2 text-white">Accessible Chatbot</div>
 
           {/* Theme Toggle */}
           <ToggleSwitch

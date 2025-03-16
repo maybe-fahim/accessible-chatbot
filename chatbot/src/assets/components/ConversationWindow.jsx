@@ -1,18 +1,24 @@
 import React from "react";
+import Conversation from "./Conversation";
+import MessageInput from "./MessageInput";
 
 const ConversationWindow = () => {
   return (
-    <div className="flex flex-col gap-3 overflow-y-auto flex-grow p-4 rounded-md bg-[var(--bg-color)] text-[var(--text-color)] ">
-      {/* Sample user message */}
-      <div className="self-end bg-blue-500 text-white px-4 py-2 rounded-xl max-w-xs">
-        Can you write me a short poem?
+    <div className="flex flex-col w-full h-screen">
+      {/* Scrollable Message Area */}
+      <div
+        className="overflow-y-auto w-full flex justify-center scroll-stable"
+      >
+        <div className="w-full max-w-[960px] pl-10 pt-8 pb-4 pr-6">
+          <Conversation />
+        </div>
       </div>
 
-      {/* Sample chatbot message */}
-      <div className="self-start bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-xl max-w-xs text-white">
-        Here’s a short poem for you:
-        <br />
-        Whispers of dawn...
+      {/* Fixed Message Input Area */}
+      <div className="w-full flex justify-center">
+        <div className="w-full max-w-[960px] px-8">
+          <MessageInput />
+        </div>
       </div>
     </div>
   );

@@ -1,13 +1,11 @@
 import React from "react";
 import SendButton from "./SendButton";
-import MicrophoneButton from "./MicrophoneButton";
 
 const MessageInput = () => {
   return (
-    <div className="relative flex justify-center px-4 py-4 mb-4">
-
+    <div className="relative flex justify-center py-6">
       {/* Message Box Container */}
-      <div className="relative flex-grow max-w-[768px] w-full">
+      <div className="relative flex-grow w-full">
         {/* Textarea for top-aligned placeholder */}
         <textarea
           rows={4}

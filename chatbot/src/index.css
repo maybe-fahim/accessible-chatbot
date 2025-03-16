@@ -37,5 +37,8 @@
     font-family: "Jost", sans-serif;
   }
 
+  .scroll-stable {
+    scrollbar-gutter: stable;
+  }
   
   
