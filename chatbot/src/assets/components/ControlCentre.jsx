@@ -1,38 +1,43 @@
 import React, { useState } from "react";
 import ToggleSwitch from "./ToggleSwitch";
 import BurgerMenu from "./BurgerMenu";
-import { FiSun } from "react-icons/fi";
-import { FiMoon } from "react-icons/fi";
-import { FiEye } from "react-icons/fi";
-import { FiEyeOff } from "react-icons/fi";
-import { FiVolume1 } from "react-icons/fi";
-import { FiVolumeX } from "react-icons/fi";
-
+import { FiSun, FiMoon, FiEye, FiEyeOff, FiVolume1, FiVolumeX } from "react-icons/fi";
+import { useUI } from "../context/UIContext"; // ✅ Import useTheme
 
 const ControlCentre = ({ isOpen, setIsOpen }) => {
-  const [darkMode, setDarkMode] = useState(false);
-  const [largeText, setLargeText] = useState(false);
-  const [highContrast, setHighContrast] = useState(false);
+  const {
+    darkMode,
+    highContrast,
+    largeText,
+    setDarkMode,
+    setHighContrast,
+    setLargeText,
+  } = useUI();
+  
+
   const [audioMode, setAudioMode] = useState(false);
 
   return (
     <div
       className={`
         flex flex-col h-full transition-all duration-300 ease-in-out
-        text-sm text-[var(--text-color)]
+        text-sm text-[var(--text)]
         ${isOpen ? "w-64 px-4" : "w-16 px-2"}
-        bg-neutral-900 dark:bg-neutral-800
+        bg-[var(--controlCentreBackground)]
       `}
     >
-      {/* Burger Icon (always visible, top-right) */}
+      {/* Burger Icon */}
       <div className="flex justify-end items-center h-14">
-        <BurgerMenu onClick={() => setIsOpen(!isOpen)} />
+        <button
+          onClick={() => setIsOpen(!isOpen)}>
+          <BurgerMenu />
+        </button>
       </div>
 
       {/* Toggle Area */}
       {isOpen && (
         <div className="flex flex-col items-center gap-16 pb-6">
-          <div className="text-lg font-semibold mb-2 text-white">Accessible Chatbot</div>
+          <div />
 
           {/* Theme Toggle */}
           <ToggleSwitch
@@ -40,9 +45,9 @@ const ControlCentre = ({ isOpen, setIsOpen }) => {
             shortcutKey="Q"
             isActive={darkMode}
             onToggle={() => setDarkMode(prev => !prev)}
-            iconOff={<FiMoon size={37.5}/>}
-            iconOn={<FiSun size={37.5}/>}
-            bgClass="bg-[var(--toggle-off)]"
+            iconOff={<FiMoon size={37.5} />}
+            iconOn={<FiSun size={37.5} />}
+            bgClass="bg-[var(--buttonColour)]"
           />
 
           {/* Large Text */}
@@ -50,9 +55,12 @@ const ControlCentre = ({ isOpen, setIsOpen }) => {
             label="Large Text"
             shortcutKey="W"
             isActive={largeText}
-            onToggle={() => setLargeText(prev => !prev)}
-            iconOff={<FiEyeOff size={37.5}/>}
-            iconOn={<FiEyeOff size={37.5}/>}
+            onToggle={() => {
+              console.log("Toggling large text");
+              setLargeText(prev => !prev)
+            }}
+            iconOff={<FiEyeOff size={37.5} />}
+            iconOn={<FiEyeOff size={37.5} />}
           />
 
           {/* High Contrast */}
@@ -61,8 +69,8 @@ const ControlCentre = ({ isOpen, setIsOpen }) => {
             shortcutKey="E"
             isActive={highContrast}
             onToggle={() => setHighContrast(prev => !prev)}
-            iconOff={<FiEye size={37.5}/>}
-            iconOn={<FiEyeOff size={37.5}/>}
+            iconOff={<FiEye size={37.5} />}
+            iconOn={<FiEyeOff size={37.5} />}
           />
 
           {/* Audio Mode */}
@@ -71,8 +79,8 @@ const ControlCentre = ({ isOpen, setIsOpen }) => {
             shortcutKey="R"
             isActive={audioMode}
             onToggle={() => setAudioMode(prev => !prev)}
-            iconOff={<FiVolumeX size={37.5}/>}
-            iconOn={<FiVolume1 size={37.5}/>}
+            iconOff={<FiVolumeX size={37.5} />}
+            iconOn={<FiVolume1 size={37.5} />}
           />
         </div>
       )}

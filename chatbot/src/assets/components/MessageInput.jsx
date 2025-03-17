@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import SendButton from "./SendButton";
 
 const MessageInput = () => {
+  const [isFocused, setIsFocused] = useState(false);
+
   return (
     <div className="relative flex justify-center py-6">
       {/* Message Box Container */}
@@ -10,15 +12,20 @@ const MessageInput = () => {
         <textarea
           rows={4}
           placeholder="How can I help you today?"
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           className="
             w-full h-[150px]
-            bg-white text-gray-700 placeholder-gray-400
+            bg-[var(--textBoxBackground)] text-[var(--messageTextColour)] placeholder-[var(--helpTextColour)]
             px-6 py-4 pr-16
             rounded-[20px]
-            shadow-sm border border-gray-300
+            shadow-sm
             focus:ring-5 focus:ring-blue-500 focus:outline-none
-            text-lg resize-none
+            resize-none
           "
+          style={{
+            fontSize: "var(--placeholderTextSize)",
+          }}
         />
 
         {/* Send Button - Inside top-right of input box */}
@@ -26,10 +33,23 @@ const MessageInput = () => {
           <SendButton />
         </div>
 
-        {/* Helper Text */}
-        <p className="absolute bottom-5 right-5 text-sm text-gray-400">
+        {/* Helper Text - Right */}
+        <p
+          className="absolute bottom-5 right-5 text-sm text-[var(--helpTextColour)]"
+          style={{ fontSize: "var(--helpTextSize)" }}
+        >
           Press Enter to send
         </p>
+
+        {/* Helper Text - Left (only when focused) */}
+        {isFocused && (
+          <p
+            className="absolute bottom-5 left-5 text-sm text-[var(--helpTextColour)]"
+            style={{ fontSize: "var(--helpTextSize)" }}
+          >
+            Press Esc to exit
+          </p>
+        )}
       </div>
     </div>
   );
