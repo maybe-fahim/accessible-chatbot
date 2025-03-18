@@ -106,15 +106,15 @@ export const UIProvider = ({ children }) => {
   useEffect(() => {
     const fontSizes = largeText
       ? {
-          messageTextSize: "2rem",       // 18px
-          placeholderTextSize: "1.75rem",        // 32px
-          toggleSwitchTextSize: "1.75rem",
+          messageTextSize: "2rem",       // Large Text Enabled
+          placeholderTextSize: "1.75rem",       
+          toggleSwitchTextSize: "1.5rem",
           keyboardBadgeSize: "1.75rem",
           helpTextSize: "1.25rem",
         }
       : {
-          messageTextSize: "1rem",       // 18px
-          placeholderTextSize: "1.125rem",        // 32px
+          messageTextSize: "1rem",       // Large Text Disabled
+          placeholderTextSize: "1.125rem",        
           toggleSwitchTextSize: "1.125rem",
           keyboardBadgeSize: "1.5rem",
           helpTextSize: "0.875rem",

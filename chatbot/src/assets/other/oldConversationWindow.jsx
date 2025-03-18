@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import Conversation from "./Conversation";
 import MessageInput from "./MessageInput";
 import ResponseDictionary from "../data/ResponseDictionary";
-import nlp from "compromise";
+import nlp from "compromise"; // ✅ Import compromise
 import TypingIndicator from "./TypingIndicator";
 
 const ConversationWindow = () => {
@@ -11,12 +11,11 @@ const ConversationWindow = () => {
     { type: "response", text: "Hi there! How can I assist you today?" },
   ]);
 
-  const [isThinking, setIsThinking] = useState(false); // Shows TypingIndicator
-  const [isTyping, setIsTyping] = useState(false);     // Triggers word-by-word rendering
+  const [isTyping, setIsTyping] = useState(false);
   const scrollContainerRef = useRef(null);
 
-  const MIN_DELAY = 500;
-  const MAX_DELAY = 7000;
+  const MIN_DELAY = 500;   // 0.5s
+  const MAX_DELAY = 7000;  // 7s
 
   const handleSendMessage = (text) => {
     if (!text.trim()) return;
@@ -24,8 +23,7 @@ const ConversationWindow = () => {
     const userMessage = { type: "user", text };
     setMessages((prev) => [...prev, userMessage]);
 
-    setIsThinking(true);
-    setIsTyping(false);
+    setIsTyping(true);
 
     const delay = Math.floor(Math.random() * (MAX_DELAY - MIN_DELAY + 1)) + MIN_DELAY;
 
@@ -33,6 +31,9 @@ const ConversationWindow = () => {
       const doc = nlp(text.toLowerCase());
       const topics = doc.topics().out("array");
       const nouns = doc.nouns().out("array");
+
+      console.log("Topics:", topics);
+      console.log("Nouns:", nouns);
 
       let selectedResponse = "I'm not sure how to respond to that, but I'm listening!";
 
@@ -54,45 +55,18 @@ const ConversationWindow = () => {
         }
       }
 
-      // Stop showing the dots
-      setIsThinking(false);
-      setIsTyping(true);
-
-      // Word-by-word rendering
-      const words = selectedResponse.split(" ");
-      const botMessage = { type: "response", text: "" };
+      const botMessage = { type: "response", text: selectedResponse };
       setMessages((prev) => [...prev, botMessage]);
-
-      let wordIndex = 0;
-
-      const typeWord = () => {
-        wordIndex++;
-        setMessages((prev) => {
-          const updated = [...prev];
-          updated[updated.length - 1] = {
-            ...updated[updated.length - 1],
-            text: words.slice(0, wordIndex).join(" "),
-          };
-          return updated;
-        });
-
-        if (wordIndex < words.length) {
-          setTimeout(typeWord, 30); // Delay per word
-        } else {
-          setIsTyping(false);
-        }
-      };
-
-      typeWord();
+      setIsTyping(false);
     }, delay);
   };
 
-  // Auto-scroll on new message or indicator change
+  // ✅ Scroll to bottom on message or typing indicator change
   useEffect(() => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
     }
-  }, [messages, isThinking, isTyping]);
+  }, [messages, isTyping]);
 
   return (
     <div className="flex flex-col w-full h-screen items-center">
@@ -103,7 +77,7 @@ const ConversationWindow = () => {
       >
         <div className="w-full max-w-[958px] pl-[39px] pt-8 pb-4 pr-[25px]">
           <Conversation messages={messages} />
-          {isThinking && <TypingIndicator />}
+          {isTyping && <TypingIndicator />} {/* 👈 only show while "thinking" */}
         </div>
       </div>
 

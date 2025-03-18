@@ -29,11 +29,12 @@ const MicrophoneButton = () => {
 
       {/* Shortcut Key Badge */}
       <div
-        className="absolute -bottom-8 w-[45px] h-[45px] rounded-full border-4 flex items-center justify-center text-2xl font-semibold shadow-md"
+        className="absolute -bottom-8 w-[45px] h-[45px] rounded-full border-4 flex items-center justify-center font-semibold shadow-md"
         style={{
           backgroundColor: "var(--keyboardBadgeBackground)",
           borderColor: "var(--keyboardBadgeOutline)",
           color: "var(--keyboardBadgeText)",
+          fontSize: "var(--keyboardBadgeSize)", // ✅ dynamic font size from context
         }}
       >
         S

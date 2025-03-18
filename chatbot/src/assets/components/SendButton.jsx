@@ -1,10 +1,11 @@
 import React from "react";
 import { GoArrowUp } from "react-icons/go";
 
-const SendButton = () => {
+const SendButton = ({ onClick }) => {
   return (
     <button
       type="button"
+      onClick={onClick} // ✅ Trigger sending
       className="
         w-[60px] h-[60px]
         rounded-[20px]
