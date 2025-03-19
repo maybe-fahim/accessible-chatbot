@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from "react";
 
-const Notification = ({ message, type, icon, duration = 3000 }) => {
+const Notification = ({ message, type, icon, duration = 3000, onClose }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    // Hide the notification after the duration
     const timer = setTimeout(() => {
       setIsVisible(false);
-    }, duration); // Duration in milliseconds
+    }, duration);
 
-    return () => clearTimeout(timer); // Clean up the timer on component unmount
+    return () => clearTimeout(timer);
   }, [duration]);
+
+  useEffect(() => {
+    // When isVisible becomes false, fire onClose after transition
+    if (!isVisible && onClose) {
+      const cleanupTimer = setTimeout(() => {
+        onClose();
+      }, 500); // must match transition duration
+      return () => clearTimeout(cleanupTimer);
+    }
+  }, [isVisible, onClose]);
 
   return (
     <div
@@ -21,27 +30,21 @@ const Notification = ({ message, type, icon, duration = 3000 }) => {
       style={{
         fontSize: "var(--placeholderTextSize)",
         backgroundColor: "var(--notificationBackground)",
-        paddingLeft: "12px", // Add some padding for icon spacing
+        paddingLeft: "12px",
         paddingRight: "16px",
-        maxWidth: "90%", // Makes the notification responsive
-        fontWeight: "500", // Increased font weight
-        color: "var(--notificationTextColour)", // Use the notification text color from the theme
+        maxWidth: "90%",
+        fontWeight: "500",
+        color: "var(--notificationTextColour)",
       }}
     >
-      {/* If an icon is passed, display it */}
       {icon && (
         <span
           className="mr-3 flex items-center justify-center"
-          style={{
-            fontSize: "1.5rem", // Increased icon size
-            lineHeight: "1", // Vertically center icon
-          }}
+          style={{ fontSize: "1.5rem", lineHeight: "1" }}
         >
           {icon}
         </span>
       )}
-
-      {/* Message Text */}
       <span>{message}</span>
     </div>
   );

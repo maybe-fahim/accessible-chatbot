@@ -5,13 +5,16 @@ import Notification from "./Notification";
 import ResponseDictionary from "../data/ResponseDictionary";
 import nlp from "compromise";
 import TypingIndicator from "./TypingIndicator";
-import { BsExclamationLg } from "react-icons/bs"; // Import BsExclamationLg icon
+import { BsExclamationLg } from "react-icons/bs";
+import { LuAudioLines } from "react-icons/lu";
+import AudioManager from "../context/AudioManager"; // ✅ Audio Mode
 
-const ConversationWindow = () => {
+const ConversationWindow = ({ transcript, setTranscript, isListening }) => {
   const [messages, setMessages] = useState([]);
   const [isThinking, setIsThinking] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState(""); // State for error notification
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [showListening, setShowListening] = useState(false);
   const scrollContainerRef = useRef(null);
 
   const MIN_DELAY = 500;
@@ -29,19 +32,17 @@ const ConversationWindow = () => {
     const delay = Math.floor(Math.random() * (MAX_DELAY - MIN_DELAY + 1)) + MIN_DELAY;
 
     setTimeout(() => {
-      // Simulate a random error occurring during response generation
-      const isError = Math.random() < 0.10; // 10% chance of an error
+      const isError = Math.random() < 0.10;
 
       if (isError) {
-        // Show notification and don't send a message
-        setNotificationMessage("Unable to generate response, please try again.");
+        const errorMsg = "Unable to generate response, please try again.";
+        setNotificationMessage(errorMsg);
+        AudioManager.speak(errorMsg); // 🔊 speak error
         setIsThinking(false);
-        // Clear notification after 3 seconds
         setTimeout(() => setNotificationMessage(""), 5000);
-        return; // Exit early, do not generate a response
+        return;
       }
 
-      // Proceed with normal response generation
       const cleanedText = text.replace(/[^\w\s]|_/g, "").replace(/\s+/g, " ").toLowerCase();
       const doc = nlp(cleanedText);
       const topics = doc.topics().out("array");
@@ -49,7 +50,6 @@ const ConversationWindow = () => {
 
       let selectedResponse = "I'm not sure how to respond to that, but I'm listening!";
 
-      // Fallback responses
       const fallbackResponses = [
         "Could you clarify that a bit? I'm not sure I understand.",
         "Hmm, that’s interesting! I’m still learning about that topic.",
@@ -63,7 +63,6 @@ const ConversationWindow = () => {
         "I'm not sure... try using keywords in your message!"
       ];
 
-      // Try matching topics first
       for (const topic of topics) {
         const normalized = topic.toLowerCase();
         if (ResponseDictionary.has(normalized)) {
@@ -73,7 +72,6 @@ const ConversationWindow = () => {
         }
       }
 
-      // If no topic match, try noun fallback
       if (selectedResponse.includes("not sure")) {
         for (const noun of nouns) {
           const normalized = noun.toLowerCase();
@@ -85,7 +83,6 @@ const ConversationWindow = () => {
         }
       }
 
-      // If no match was found, use a random fallback response
       if (selectedResponse.includes("not sure")) {
         selectedResponse = fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
       }
@@ -96,6 +93,8 @@ const ConversationWindow = () => {
       const words = selectedResponse.split(" ");
       const botMessage = { type: "response", text: "" };
       setMessages((prev) => [...prev, botMessage]);
+
+      AudioManager.speak(selectedResponse); // 🔊 speak response
 
       let wordIndex = 0;
       const typeWord = () => {
@@ -110,7 +109,7 @@ const ConversationWindow = () => {
         });
 
         if (wordIndex < words.length) {
-          setTimeout(typeWord, 30); // Delay between words
+          setTimeout(typeWord, 30);
         } else {
           setIsTyping(false);
         }
@@ -120,16 +119,20 @@ const ConversationWindow = () => {
     }, delay);
   };
 
-  // Auto-scroll when messages or animation changes
   useEffect(() => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
     }
   }, [messages, isThinking, isTyping]);
 
+  useEffect(() => {
+    if (isListening) {
+      setShowListening(true);
+    }
+  }, [isListening]);
+
   return (
     <div className="flex flex-col w-full h-screen items-center">
-      {/* Scrollable Message Area */}
       <div
         className="flex-1 overflow-y-auto w-full scroll-stable flex justify-center"
         ref={scrollContainerRef}
@@ -140,19 +143,31 @@ const ConversationWindow = () => {
         </div>
       </div>
 
-      {/* Error Notification */}
       {notificationMessage && (
         <Notification
           message={notificationMessage}
           type="error"
-          icon={<BsExclamationLg size={28} className="text-[#FF0000] text-2xl" />} // Using red icon for error
+          icon={<BsExclamationLg size={28} className="text-[#FF0000] text-2xl" />}
         />
       )}
 
-      {/* Sticky Input */}
+      {showListening && (
+        <Notification
+          message="Listening"
+          type="success"
+          duration={isListening ? 999999 : 500}
+          icon={<LuAudioLines size={28} style={{ color: "var(--buttonActiveColour)" }} />}
+          onClose={() => setShowListening(false)}
+        />
+      )}
+
       <div className="sticky bottom-0 w-full flex justify-center bg-[var(--conversationWindowBackground)] z-10">
         <div className="w-full max-w-[960px] px-8">
-          <MessageInput onSend={handleSendMessage} />
+          <MessageInput
+            onSend={handleSendMessage}
+            transcript={transcript}
+            setTranscript={setTranscript}
+          />
         </div>
       </div>
     </div>

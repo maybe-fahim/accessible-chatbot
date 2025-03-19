@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import SendButton from "./SendButton";
 
-const MessageInput = ({ onSend }) => {
+const MessageInput = ({ onSend, transcript, setTranscript }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [text, setText] = useState("");
   const textareaRef = useRef(null);
@@ -33,6 +33,14 @@ const MessageInput = ({ onSend }) => {
     return () => window.removeEventListener("keydown", handleGlobalEnter);
   }, [isFocused]);
 
+  // Inject transcript into the message box
+  useEffect(() => {
+    if (transcript) {
+      setText((prev) => (prev ? prev + " " + transcript : transcript));
+      setTranscript("");
+    }
+  }, [transcript, setTranscript]);
+
   return (
     <div className="relative flex justify-center py-6">
       <div className="relative flex-grow w-full">
@@ -57,18 +65,18 @@ const MessageInput = ({ onSend }) => {
           style={{ fontSize: "var(--placeholderTextSize)" }}
         />
 
-        {/* Send Button */}
         <div className="absolute top-3 right-3">
-          <SendButton onClick={() => {
-            if (text.trim()) {
-              onSend(text);
-              setText("");
-              textareaRef.current?.blur();
-            }
-          }} />
+          <SendButton
+            onClick={() => {
+              if (text.trim()) {
+                onSend(text);
+                setText("");
+                textareaRef.current?.blur();
+              }
+            }}
+          />
         </div>
 
-        {/* Bottom-Left Message */}
         <p
           className="absolute bottom-5 left-5 text-sm text-[var(--helpTextColour)]"
           style={{ fontSize: "var(--helpTextSize)" }}
@@ -76,7 +84,6 @@ const MessageInput = ({ onSend }) => {
           {isFocused ? "Press Esc to exit" : "Press Enter to type"}
         </p>
 
-        {/* Bottom-Right Message (only when focused) */}
         {isFocused && (
           <p
             className="absolute bottom-5 right-5 text-sm text-[var(--helpTextColour)]"

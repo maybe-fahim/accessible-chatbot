@@ -35,6 +35,13 @@ const SynonymConfig = {
   school: ["school", "class", "education", "learning", "student", "students", "classroom", "study", "lesson", "lessons", "homework", "homeworks", "university", "college", "colleges", "lecture", "lectures"],
   work: ["work", "job", "career", "task", "office", "shift", "shift", "employment", "gig", "grind"],
   family: ["family", "relative", "relatives", "parent", "parents", "sibling", "siblings", "kin", "brother", "brothers", "sister", "sisters", "cousin", "cousins", "aunt", "aunts", "uncle", "uncles"],
+  holiday: ["holiday", "vacation", "break", "trip", "getaway", "time off", "travel", "rest"],
+  beach: ["beach", "shore", "coast", "seaside", "shell", "towel"],
+  sport: ["sport", "tennis", "hockey", "bowling", "rugby", "skiing", "swimming", "swim", "run", "running", "jog", "jogging", "hike", "hiking", "skateboard", "skateboarding"],
+  religion: ["religion", "faith", "belief", "worship", "god", "islam", "christianity", "judaism", "ramadan", "easter"],
+  forest: ["forest", "woods", "trees", "jungle", "grove", "wilderness", "canopy", "nature", "greenery"],
+
+
 };
 
 export default SynonymConfig;

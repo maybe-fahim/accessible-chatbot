@@ -219,6 +219,37 @@ const familyResponses = [
   "Family means love, chaos, support, laughter, and sometimes arguments—but at the end of the day, they’re the people who’ve seen us grow and still choose to stick around. That’s something special."
 ];
 
+const holidayResponses = [
+  "Holidays are those magical pauses in life where everything slows down and good memories take center stage.",
+  "Sunscreen, snacks, suitcase. Let’s go.",
+  "Whether it’s a beach escape, a cozy cabin, or just a few days of sleeping in, holidays give us a much-needed reset. It’s about rest, adventure, or sometimes doing absolutely nothing—and loving it."
+];
+
+const beachResponses = [
+  "Sand between your toes, waves in your ears, and zero worries—that’s the beach life.",
+  "I came for the sun but stayed for the snacks and naps.",
+  "Whether you're surfing, swimming, or just staring at the horizon, the beach has this calm, timeless energy that makes everything feel a little lighter."
+];
+
+const sportResponses = [
+  "Sport builds discipline, strength, and resilience—on and off the field. It teaches you how to lose with grace, win with humility, and push yourself past your limits. Whether you're playing solo or as a team, there's always something deeper than just the score.",
+  "Nothing like the adrenaline of a close match and the roar of a crowd.",
+  "From pickup games in the park to elite-level championships, sports bring people together and fuel passion like almost nothing else."
+];
+
+const religionResponses = [
+  "Religion has shaped civilizations, cultures, and personal identities for thousands of years. For many, it's a source of hope, purpose, and belonging—a framework for understanding life, death, and everything in between.",
+  "Faith means different things to different people, and that’s okay.",
+  "Whether practiced privately or communally, religion often gives people strength in tough times and a moral compass to navigate the world."
+];
+
+const forestResponses = [
+  "Walking through a forest feels like stepping into a different world—quiet, alive, and full of mystery. Every sound, every scent, every shaft of light filtering through the trees is calming and grounding.",
+  "Smells like pine, feels like peace.",
+  "Forests are lungs of the Earth, home to countless species, and places where time seems to slow down. Whether you're hiking, camping, or just listening to the wind in the leaves, there's something deeply healing about being surrounded by trees."
+];
+
+
 
 // ✅ Map root keyword → responses
 const ResponseTemplates = {
@@ -257,7 +288,12 @@ const ResponseTemplates = {
   book: bookResponses,
   school: schoolResponses,
   work: workResponses,
-  family: familyResponses
+  family: familyResponses,
+  holiday: holidayResponses,
+  beach: beachResponses,
+  sport: sportResponses,
+  religion: religionResponses,
+  forest: forestResponses,
 };
 
 // ✅ Assign each synonym to its respective response array

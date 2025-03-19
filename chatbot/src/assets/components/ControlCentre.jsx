@@ -5,6 +5,7 @@ import { FiSun, FiMoon, FiEye, FiEyeOff, FiVolume1, FiVolumeX } from "react-icon
 import { MdTextDecrease, MdTextIncrease } from "react-icons/md";
 import { useUI } from "../context/UIContext";
 import { useHotkeys } from "react-hotkeys-hook";
+import AudioManager from "../context/AudioManager"; // ✅
 
 const ControlCentre = ({ isOpen, setIsOpen }) => {
   const {
@@ -18,14 +19,12 @@ const ControlCentre = ({ isOpen, setIsOpen }) => {
 
   const [audioMode, setAudioMode] = useState(false);
 
-  // 🔗 Refs for focusable buttons
   const burgerRef = useRef(null);
   const themeRef = useRef(null);
   const textRef = useRef(null);
   const contrastRef = useRef(null);
   const audioRef = useRef(null);
 
-  // 🔑 Keyboard Shortcuts
   useHotkeys("a", () => {
     setIsOpen(prev => !prev);
     setTimeout(() => burgerRef.current?.focus(), 10);
@@ -33,27 +32,45 @@ const ControlCentre = ({ isOpen, setIsOpen }) => {
 
   useHotkeys("q", () => {
     if (!isOpen) return;
-    setDarkMode(prev => !prev);
+    setDarkMode(prev => {
+      const next = !prev;
+      AudioManager.speak(`Theme ${next ? "dark" : "light"}`);
+      return next;
+    });
     setTimeout(() => themeRef.current?.focus(), 10);
-  }, [isOpen, setDarkMode]);
+  }, [isOpen]);
 
   useHotkeys("w", () => {
     if (!isOpen) return;
-    setLargeText(prev => !prev);
+    setLargeText(prev => {
+      const next = !prev;
+      AudioManager.speak(`Large text ${next ? "enabled" : "disabled"}`);
+      return next;
+    });
     setTimeout(() => textRef.current?.focus(), 10);
-  }, [isOpen, setLargeText]);
+  }, [isOpen]);
 
   useHotkeys("e", () => {
     if (!isOpen) return;
-    setHighContrast(prev => !prev);
+    setHighContrast(prev => {
+      const next = !prev;
+      AudioManager.speak(`High contrast ${next ? "enabled" : "disabled"}`);
+      return next;
+    });
     setTimeout(() => contrastRef.current?.focus(), 10);
-  }, [isOpen, setHighContrast]);
+  }, [isOpen]);
 
   useHotkeys("r", () => {
     if (!isOpen) return;
-    setAudioMode(prev => !prev);
+    setAudioMode(prev => {
+      const next = !prev;
+      if (next) AudioManager.enable();
+      else AudioManager.disable();
+      AudioManager.speak(`Audio mode ${next ? "enabled" : "disabled"}`);
+      return next;
+    });
     setTimeout(() => audioRef.current?.focus(), 10);
-  }, [isOpen, setAudioMode]);
+  }, [isOpen]);
 
   return (
     <div
@@ -64,7 +81,6 @@ const ControlCentre = ({ isOpen, setIsOpen }) => {
         bg-[var(--controlCentreBackground)]
       `}
     >
-      {/* Burger Icon */}
       <div className="flex justify-end items-center mt-2">
         <button
           ref={burgerRef}
@@ -76,7 +92,6 @@ const ControlCentre = ({ isOpen, setIsOpen }) => {
         </button>
       </div>
 
-      {/* Toggle Area */}
       {isOpen && (
         <div className="flex flex-col items-center gap-16 pb-6">
           <div />
@@ -86,7 +101,13 @@ const ControlCentre = ({ isOpen, setIsOpen }) => {
             label="Theme"
             shortcutKey="Q"
             isActive={darkMode}
-            onToggle={() => setDarkMode(prev => !prev)}
+            onToggle={() => {
+              setDarkMode(prev => {
+                const next = !prev;
+                AudioManager.speak(`Theme ${next ? "dark" : "light"}`);
+                return next;
+              });
+            }}
             iconOff={<FiMoon size={37.5} />}
             iconOn={<FiSun size={37.5} />}
             bgClass="bg-[var(--buttonColour)]"
@@ -97,7 +118,13 @@ const ControlCentre = ({ isOpen, setIsOpen }) => {
             label="Large Text"
             shortcutKey="W"
             isActive={largeText}
-            onToggle={() => setLargeText(prev => !prev)}
+            onToggle={() => {
+              setLargeText(prev => {
+                const next = !prev;
+                AudioManager.speak(`Large text ${next ? "enabled" : "disabled"}`);
+                return next;
+              });
+            }}
             iconOff={<MdTextIncrease size={37.5} />}
             iconOn={<MdTextDecrease size={37.5} />}
           />
@@ -107,7 +134,13 @@ const ControlCentre = ({ isOpen, setIsOpen }) => {
             label="High Contrast"
             shortcutKey="E"
             isActive={highContrast}
-            onToggle={() => setHighContrast(prev => !prev)}
+            onToggle={() => {
+              setHighContrast(prev => {
+                const next = !prev;
+                AudioManager.speak(`High contrast ${next ? "enabled" : "disabled"}`);
+                return next;
+              });
+            }}
             iconOff={<FiEye size={37.5} />}
             iconOn={<FiEyeOff size={37.5} />}
           />
@@ -117,7 +150,15 @@ const ControlCentre = ({ isOpen, setIsOpen }) => {
             label="Audio Mode"
             shortcutKey="R"
             isActive={audioMode}
-            onToggle={() => setAudioMode(prev => !prev)}
+            onToggle={() => {
+              setAudioMode(prev => {
+                const next = !prev;
+                if (next) AudioManager.enable();
+                else AudioManager.disable();
+                AudioManager.speak(`Audio mode ${next ? "enabled" : "disabled"}`);
+                return next;
+              });
+            }}
             iconOff={<FiVolume1 size={37.5} />}
             iconOn={<FiVolumeX size={37.5} />}
           />
