@@ -11,7 +11,7 @@ const themes = {
     textBoxBackground: "#FFFFFF",
     buttonColour: "#454441",
     buttonActiveColour: "#25BB4D",
-    buttonHoverColour: "#FF0000",
+    buttonHoverColour: "#818181",
     toggleSwitchColour: "#FFFFFF",
     messageTextColour: "#2A2A28",
     keyboardBadgeBackground: "#FEFEFD",
@@ -19,6 +19,8 @@ const themes = {
     keyboardBadgeText: "#000000",
     iconColour: "#FFFFFF",
     helpTextColour: "#91908C",
+    notificationBackground: "#FFFFFF",
+    notificationTextColour: "#000000"
   },
   dark: {
     name: "dark",
@@ -28,7 +30,7 @@ const themes = {
     textBoxBackground: "#5B5B5B",
     buttonColour: "#E5E5E5",
     buttonActiveColour: "#25BB4D",
-    buttonHoverColour: "#FF0000",
+    buttonHoverColour: "#FFFFFF",
     toggleSwitchColour: "#303030",
     messageTextColour: "#FFFFFF",
     keyboardBadgeBackground: "#FEFEFD",
@@ -36,6 +38,8 @@ const themes = {
     keyboardBadgeText: "#000000",
     iconColour: "#303030",
     helpTextColour: "#D2D2CC",
+    notificationBackground: "#FFFFFF",
+    notificationTextColour: "#000000"
   },
   "light-high-contrast": {
     name: "light-high-contrast",
@@ -45,7 +49,7 @@ const themes = {
     textBoxBackground: "#EEEEEE",
     buttonColour: "#000000",
     buttonActiveColour: "#00E93E",
-    buttonHoverColour: "#FF0000",
+    buttonHoverColour: "#666666",
     toggleSwitchColour: "#FFFFFF",
     messageTextColour: "#000000",
     keyboardBadgeBackground: "#FFFFFF",
@@ -53,6 +57,8 @@ const themes = {
     keyboardBadgeText: "#000000",
     iconColour: "#FFFFFF",
     helpTextColour: "#000000",
+    notificationBackground: "#000000",
+    notificationTextColour: "#FFFFFF"
   },
   "dark-high-contrast": {
     name: "dark-high-contrast",
@@ -62,7 +68,7 @@ const themes = {
     textBoxBackground: "#000000",
     buttonColour: "#FFFFFF",
     buttonActiveColour: "#25BB4D",
-    buttonHoverColour: "#FF0000",
+    buttonHoverColour: "#D2D2CC",
     toggleSwitchColour: "#000000",
     messageTextColour: "#FFFFFF",
     keyboardBadgeBackground: "#000000",
@@ -70,6 +76,8 @@ const themes = {
     keyboardBadgeText: "#FFFFFF",
     iconColour: "#000000",
     helpTextColour: "#FFFFFF",
+    notificationBackground: "#FFFFFF",
+    notificationTextColour: "#000000"
   },
 };
 

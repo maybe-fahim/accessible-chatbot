@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import ToggleSwitch from "./ToggleSwitch";
 import BurgerMenu from "./BurgerMenu";
 import { FiSun, FiMoon, FiEye, FiEyeOff, FiVolume1, FiVolumeX } from "react-icons/fi";
+import { MdTextDecrease, MdTextIncrease } from "react-icons/md";
 import { useUI } from "../context/UIContext";
 import { useHotkeys } from "react-hotkeys-hook";
 
@@ -97,8 +98,8 @@ const ControlCentre = ({ isOpen, setIsOpen }) => {
             shortcutKey="W"
             isActive={largeText}
             onToggle={() => setLargeText(prev => !prev)}
-            iconOff={<FiEyeOff size={37.5} />}
-            iconOn={<FiEyeOff size={37.5} />}
+            iconOff={<MdTextIncrease size={37.5} />}
+            iconOn={<MdTextDecrease size={37.5} />}
           />
 
           <ToggleSwitch
