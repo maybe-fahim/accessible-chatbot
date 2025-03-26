@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { MdMic, MdStop } from "react-icons/md";
 import { useHotkeys } from "react-hotkeys-hook";
-import AudioManager from "../context/AudioManager"; // ✅ Audio Mode
+import AudioManager from "../context/AudioManager";
 
 const MicrophoneButton = ({ onTranscript, setIsListening }) => {
   const [listening, setListening] = useState(false);
@@ -23,7 +23,7 @@ const MicrophoneButton = ({ onTranscript, setIsListening }) => {
     recognizer.onstart = () => {
       setListening(true);
       setIsListening(true);
-      AudioManager.playStartCue(); // 🔊 Beep on start
+      AudioManager.playStartCue(); 
     };
 
     recognizer.onresult = (event) => {
@@ -34,7 +34,7 @@ const MicrophoneButton = ({ onTranscript, setIsListening }) => {
     recognizer.onend = () => {
       setListening(false);
       setIsListening(false);
-      AudioManager.playEndCue(); // 🔊 Beep on end
+      AudioManager.playEndCue();
     };
 
     recognizer.onerror = () => {

@@ -12,17 +12,19 @@ const Notification = ({ message, type, icon, duration = 3000, onClose }) => {
   }, [duration]);
 
   useEffect(() => {
-    // When isVisible becomes false, fire onClose after transition
     if (!isVisible && onClose) {
       const cleanupTimer = setTimeout(() => {
         onClose();
-      }, 500); // must match transition duration
+      }, 500);
       return () => clearTimeout(cleanupTimer);
     }
   }, [isVisible, onClose]);
 
   return (
     <div
+      role="status"
+      aria-live={type === "error" ? "assertive" : "polite"}
+      aria-atomic="true"
       className={`fixed top-5 left-1/2 transform -translate-x-1/2 p-4 rounded-full max-w-xs w-auto text-center flex items-center justify-center
         ${type === "error" ? "bg-red-100 text-red-600" : "bg-green-100 text-green-600"} 
         ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[-50px]"}

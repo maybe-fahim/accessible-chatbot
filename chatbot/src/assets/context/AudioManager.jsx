@@ -3,21 +3,18 @@ const synth = window.speechSynthesis;
 let selectedVoice = null;
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-// Load preferred voice if available
 const loadVoice = (preferredName = "Google UK English Female") => {
   const voices = synth.getVoices();
   const match = voices.find((v) => v.name === preferredName);
   selectedVoice = match || voices.find((v) => v.default) || voices[0] || null;
 };
 
-// Ensure voices are loaded properly (some browsers delay loading)
 if (synth.onvoiceschanged !== undefined) {
   synth.onvoiceschanged = () => {
     loadVoice();
   };
 }
 
-// Initial load attempt (in case voices are already available)
 loadVoice();
 
 const speak = (text) => {

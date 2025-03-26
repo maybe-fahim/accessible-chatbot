@@ -7,7 +7,7 @@ import nlp from "compromise";
 import TypingIndicator from "./TypingIndicator";
 import { BsExclamationLg } from "react-icons/bs";
 import { LuAudioLines } from "react-icons/lu";
-import AudioManager from "../context/AudioManager"; // ✅ Audio Mode
+import AudioManager from "../context/AudioManager"; 
 
 const ConversationWindow = ({ transcript, setTranscript, isListening }) => {
   const [messages, setMessages] = useState([]);
@@ -37,7 +37,7 @@ const ConversationWindow = ({ transcript, setTranscript, isListening }) => {
       if (isError) {
         const errorMsg = "Unable to generate response, please try again.";
         setNotificationMessage(errorMsg);
-        AudioManager.speak(errorMsg); // 🔊 speak error
+        AudioManager.speak(errorMsg); 
         setIsThinking(false);
         setTimeout(() => setNotificationMessage(""), 5000);
         return;
@@ -94,7 +94,7 @@ const ConversationWindow = ({ transcript, setTranscript, isListening }) => {
       const botMessage = { type: "response", text: "" };
       setMessages((prev) => [...prev, botMessage]);
 
-      AudioManager.speak(selectedResponse); // 🔊 speak response
+      AudioManager.speak(selectedResponse);
 
       let wordIndex = 0;
       const typeWord = () => {

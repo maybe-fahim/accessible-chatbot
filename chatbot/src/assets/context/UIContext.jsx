@@ -1,4 +1,3 @@
-// src/context/UIContext.jsx
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 // Define full theme objects
@@ -110,7 +109,7 @@ export const UIProvider = ({ children }) => {
     }
   }, [theme]);
 
-  // ✅ Inject font size variables
+  // Inject font size variables
   useEffect(() => {
     const fontSizes = largeText
       ? {

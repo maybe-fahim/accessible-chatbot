@@ -55,7 +55,7 @@ const ToggleSwitch = forwardRef(({
         </span>
       </button>
 
-      {/* Shortcut Badge */}
+      {/* Shortcut Key */}
       <div
         className="absolute -bottom-8 w-[45px] h-[45px] rounded-full border-4 flex items-center justify-center shadow-md"
         style={{

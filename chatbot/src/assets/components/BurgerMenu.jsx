@@ -4,7 +4,7 @@ import { FiMenu } from "react-icons/fi";
 const BurgerMenu = ({ onClick }) => {
   return (
     <div className="relative flex flex-col items-center">
-      {/* Icon Button (uses theme color) */}
+      {/* Icon Button */}
       <button
         onClick={onClick}
         className="
@@ -17,7 +17,7 @@ const BurgerMenu = ({ onClick }) => {
         <FiMenu size={50} />
       </button>
 
-      {/* Shortcut Key Badge (now dynamic) */}
+      {/* Shortcut Key Badge */}
       <div
         className="absolute -bottom-10 w-[45px] h-[45px] rounded-full border-4 flex 
         items-center justify-center font-semibold shadow-md"

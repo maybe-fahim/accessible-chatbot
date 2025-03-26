@@ -1,8 +1,8 @@
-import SynonymConfig from "./SynonymMap"; // ✅ Your synonym mappings
+import SynonymConfig from "./SynonymMap"; // Your synonym mappings
 
 const ResponseDictionary = new Map();
 
-// ✅ Define your central response arrays
+// Define central response arrays
 const footballResponses = [
   "Football is a powerful sport enjoyed around the world.",
   "Whether it's the Premier League or a local match, football unites fans.",
@@ -251,7 +251,7 @@ const forestResponses = [
 
 
 
-// ✅ Map root keyword → responses
+// Map root keyword to responses
 const ResponseTemplates = {
   football: footballResponses,
   music: musicResponses,
@@ -296,10 +296,9 @@ const ResponseTemplates = {
   forest: forestResponses,
 };
 
-// ✅ Assign each synonym to its respective response array
+// Assign each synonym to its respective response array
 Object.entries(SynonymConfig).forEach(([rootKeyword, synonyms]) => {
-  const responses = ResponseTemplates[rootKeyword]; // ✅ this must exist
-  if (!responses) return; // Skip if not defined
+  const responses = ResponseTemplates[rootKeyword]; 
 
   synonyms.forEach((syn) => {
     ResponseDictionary.set(syn.toLowerCase(), responses);

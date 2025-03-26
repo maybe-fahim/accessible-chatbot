@@ -9,7 +9,7 @@ export default function App() {
   const [controlOpen, setControlOpen] = useState(true);
   const [largeText, setLargeText] = useState(false);
   const [transcript, setTranscript] = useState("");
-  const [isListening, setIsListening] = useState(false); // 👈 new
+  const [isListening, setIsListening] = useState(false);
 
   useEffect(() => {
     document.body.classList.toggle("large-text", largeText);
@@ -36,7 +36,7 @@ export default function App() {
               <ConversationWindow
                 transcript={transcript}
                 setTranscript={setTranscript}
-                isListening={isListening} // 👈 pass down
+                isListening={isListening}
               />
             </div>
           </div>

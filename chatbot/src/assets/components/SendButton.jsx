@@ -5,7 +5,7 @@ const SendButton = ({ onClick }) => {
   return (
     <button
       type="button"
-      onClick={onClick} // ✅ Trigger sending
+      onClick={onClick}
       className="
         w-[60px] h-[60px]
         rounded-[20px]

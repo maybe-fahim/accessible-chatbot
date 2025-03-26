@@ -5,7 +5,7 @@ import { FiSun, FiMoon, FiEye, FiEyeOff, FiVolume1, FiVolumeX } from "react-icon
 import { MdTextDecrease, MdTextIncrease } from "react-icons/md";
 import { useUI } from "../context/UIContext";
 import { useHotkeys } from "react-hotkeys-hook";
-import AudioManager from "../context/AudioManager"; // ✅
+import AudioManager from "../context/AudioManager"; 
 
 const ControlCentre = ({ isOpen, setIsOpen }) => {
   const {

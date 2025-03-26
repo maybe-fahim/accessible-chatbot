@@ -50,6 +50,7 @@ const MessageInput = ({ onSend, transcript, setTranscript }) => {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="How can I help you today?"
+          aria-label="How can I help you today?"
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onKeyDown={handleKeyDown}
